@@ -15,6 +15,7 @@ import {
   ApexMarkers,
   ApexResponsive,
 } from 'ng-apexcharts';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 interface month {
   value: string;
@@ -131,6 +132,7 @@ const ELEMENT_DATA: productsData[] = [
   encapsulation: ViewEncapsulation.None,
 })
 export class AppDashboardComponent {
+
   @ViewChild('chart') chart: ChartComponent = Object.create(null);
 
   public salesOverviewChart!: Partial<salesOverviewChart> | any;
@@ -221,7 +223,8 @@ export class AppDashboardComponent {
     },
   ];
 
-  constructor() {
+  constructor(private authService: AuthService) {
+    this.authService.loginCheck();
     // sales overview chart
     this.salesOverviewChart = {
       series: [

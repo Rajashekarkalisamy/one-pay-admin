@@ -3,6 +3,7 @@ import { HttpService } from './http/http.service';
 import { MatSnackBar, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { environment } from 'src/environments/environment';
 import { StatusCodes } from '../config/index.config';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,11 @@ import { StatusCodes } from '../config/index.config';
 export class CommonService {
   verticalPosition: MatSnackBarVerticalPosition = 'top';
 
-  constructor(private http: HttpService, private _snackBar: MatSnackBar) { }
+  constructor(
+    private http: HttpService,
+    private _snackBar: MatSnackBar,
+    private _router: Router
+  ) { }
 
   request = (endPoint: string, type = "GET", data: any = {}) => {
     return new Promise((resolve, reject) => {
@@ -28,7 +33,7 @@ export class CommonService {
               this.openToast("warn", response.message);
             } else if (StatusCodes['error'].includes(response.statusCode)) {
               this.openToast("error", response.message);
-            } else {
+            } else if(StatusCodes['success'].includes(response.statusCode)) {
               this.openToast("success", response.message);
             }
             resolve(response);
@@ -54,5 +59,7 @@ export class CommonService {
       });
     }
   }
-
+  redirect(path: string) {
+    if (path && this._router.url != path) this._router.navigate([path]);
+  }
 }

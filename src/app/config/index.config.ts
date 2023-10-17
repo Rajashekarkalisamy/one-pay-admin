@@ -1,6 +1,6 @@
 export const StatusCodes = {
-    "success": ['R200'],
+    "success": [''],
     "info": ['R201'],
     "warn": ['R202'],
-    "error": ['R202'],
+    "error": ['R203'],
 }
