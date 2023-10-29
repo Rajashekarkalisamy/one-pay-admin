@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpService } from './http/http.service';
 import { MatSnackBar, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { environment } from 'src/environments/environment';
-import { StatusCodes } from '../config/index.config';
+import { STATUS } from '../config/index.config';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class CommonService {
   verticalPosition: MatSnackBarVerticalPosition = 'top';
 
   constructor(
+    private cookieService: CookieService,
     private http: HttpService,
     private _snackBar: MatSnackBar,
     private _router: Router
@@ -27,13 +29,13 @@ export class CommonService {
         this.http.post(environment.apiDomain + endPoint, data).subscribe((response: any) => {
           console.log(response);
           if (response.success) {
-            if (StatusCodes['info'].includes(response.statusCode)) {
+            if (response.type === STATUS['INFORMATION']) {
               this.openToast("info", response.message);
-            } else if (StatusCodes['warn'].includes(response.statusCode)) {
+            } else if (response.type === STATUS['WARNING']) {
               this.openToast("warn", response.message);
-            } else if (StatusCodes['error'].includes(response.statusCode)) {
+            } else if (response.type === STATUS['ERROR']) {
               this.openToast("error", response.message);
-            } else if(StatusCodes['success'].includes(response.statusCode)) {
+            } else if (response.type === STATUS['SUCCESS']) {
               this.openToast("success", response.message);
             }
             resolve(response);
@@ -62,4 +64,11 @@ export class CommonService {
   redirect(path: string) {
     if (path && this._router.url != path) this._router.navigate([path]);
   }
+
+  setCookie = (key: string, value: any) => {
+    if (key && value) this.cookieService.set(key, value);
+  }
+  getCookie = (key: string) => this.cookieService.get(key);
+
+  clearCookie = (key: string) => this.cookieService.delete(key);
 }

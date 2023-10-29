@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { CommonService } from 'src/app/services/common.service';
 
 @Component({
@@ -11,10 +12,11 @@ import { CommonService } from 'src/app/services/common.service';
 export class AppSideRegisterComponent {
   registerFormSubmitted: boolean = false;
 
-  constructor(private router: Router, private commonService: CommonService) { }
+  constructor(private commonService: CommonService) {
+  }
   registerForm = new FormGroup({
-    email: new FormControl('rajashekarkalisamy@gmail.com', [Validators.required, Validators.pattern("[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}")]),
-    password: new FormControl('123456', [Validators.required, Validators.minLength(6)]),
+    email: new FormControl('', [Validators.required, Validators.pattern("[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}")]),
+    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
   });
 
   get rf() {
@@ -28,7 +30,12 @@ export class AppSideRegisterComponent {
         "email": this.rf.email.value,
         "password": this.rf.password.value
       }
-      this.commonService.request("users/create", "POST", requestData).then(() => { }).catch(() => { });
+      this.commonService.request("users/create", "POST", requestData).then((response) => {
+        this.registerForm.reset();
+        this.rf['email'].setErrors(null);
+        this.rf['password'].setErrors(null);
+        this.registerFormSubmitted = false;
+      }).catch(() => { });
     }
   }
 }

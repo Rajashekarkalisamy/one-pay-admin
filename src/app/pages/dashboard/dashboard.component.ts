@@ -223,8 +223,7 @@ export class AppDashboardComponent {
     },
   ];
 
-  constructor(private authService: AuthService) {
-    this.authService.loginCheck();
+  constructor() {
     // sales overview chart
     this.salesOverviewChart = {
       series: [

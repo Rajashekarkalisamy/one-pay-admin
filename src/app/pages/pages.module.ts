@@ -9,6 +9,8 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { TablerIconsModule } from 'angular-tabler-icons';
 import * as TablerIcons from 'angular-tabler-icons/icons';
 import { AppDashboardComponent } from './dashboard/dashboard.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from '../interceptor/token.interceptor';
 
 @NgModule({
   declarations: [AppDashboardComponent],
@@ -21,5 +23,10 @@ import { AppDashboardComponent } from './dashboard/dashboard.component';
     TablerIconsModule.pick(TablerIcons),
   ],
   exports: [TablerIconsModule],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true,
+  }],
 })
 export class PagesModule {}
