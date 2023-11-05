@@ -7,3 +7,10 @@
 .mat-mdc-form-field-error-wrapper {
     padding: 0 0 0 0 !important;
 }
+
+.float-right{
+    float: right;
+}
+label.mdc-floating-label.mat-mdc-floating-label{
+    display: inline-flex;
+}

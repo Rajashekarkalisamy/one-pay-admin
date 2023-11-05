@@ -24,30 +24,30 @@
 
           <form class="m-t-30" [formGroup]="registerForm" (ngSubmit)="register()">
             <div class="input_group">
-              <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Email Adddress</mat-label>
               <mat-form-field appearance="outline" class="w-100" color="primary">
-                <input matInput type="email" formControlName="email" />
+                <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Email Adddress</mat-label>
+                <input matInput type="email" formControlName="email" maxlength="25"/>
                 <mat-error class="error"
-                  *ngIf="rf.email.errors?.['required'] && (rf.email.touched || registerFormSubmitted)">
+                  *ngIf="rf.email.errors?.['required'] && (registerFormSubmitted)">
                   Email address can't be empty
                 </mat-error>
                 <mat-error class="error"
-                  *ngIf="!rf.email.errors?.['required'] && rf.email.errors?.['pattern'] && (rf.email.touched || registerFormSubmitted)">
+                  *ngIf="!rf.email.errors?.['required'] && rf.email.errors?.['pattern'] && (registerFormSubmitted)">
                   Please enter a valid email address
                 </mat-error>
               </mat-form-field>
             </div>
             <div class="input_group">
               <!-- password -->
-              <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Password</mat-label>
               <mat-form-field appearance="outline" class="w-100" color="primary">
-                <input matInput type="password" formControlName="password" />
+                <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Password</mat-label>
+                <input matInput type="password" formControlName="password" maxlength="25"/>
                 <mat-error class="error"
-                  *ngIf="rf.password.errors?.['required'] && (rf.password.touched || registerFormSubmitted)">
+                  *ngIf="rf.password.errors?.['required'] && (registerFormSubmitted)">
                   Password can't be empty
                 </mat-error>
                 <mat-error class="error"
-                  *ngIf="rf.password.errors?.['minlength'] && (rf.password.touched || registerFormSubmitted)">
+                  *ngIf="rf.password.errors?.['minlength'] && (registerFormSubmitted)">
                   Password should be minimum 6 characters
                 </mat-error>
               </mat-form-field>

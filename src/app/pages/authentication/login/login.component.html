@@ -24,30 +24,30 @@
 
           <form class="m-t-30" [formGroup]="loginForm" (ngSubmit)="login()">
             <div class="input_group">
-              <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Email</mat-label>
               <mat-form-field appearance="outline" class="w-100" color="primary">
-                <input matInput type="email" formControlName="email" />
+                <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Email</mat-label>
+                <input matInput type="email" formControlName="email" maxlength="25"/>
                 <mat-error class="error"
-                  *ngIf="lf.email.errors?.['required'] && (lf.email.touched || loginFormSubmitted)">
+                  *ngIf="lf.email.errors?.['required'] && (loginFormSubmitted)">
                   Email address can't be empty
                 </mat-error>
                 <mat-error class="error"
-                  *ngIf="!lf.email.errors?.['required'] && lf.email.errors?.['pattern'] && (lf.email.touched || loginFormSubmitted)">
+                  *ngIf="!lf.email.errors?.['required'] && lf.email.errors?.['pattern'] && (loginFormSubmitted)">
                   Please enter a valid email address
                 </mat-error>
               </mat-form-field>
             </div>
             <!-- password -->
             <div class="input_group">
-              <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Password</mat-label>
               <mat-form-field appearance="outline" class="w-100" color="primary">
-                <input matInput type="password" formControlName="password" />
+                <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Password</mat-label>
+                <input matInput type="password" formControlName="password" maxlength="25"/>
                 <mat-error class="error"
-                  *ngIf="lf.password.errors?.['required'] && (lf.password.touched || loginFormSubmitted)">
+                  *ngIf="lf.password.errors?.['required'] && (loginFormSubmitted)">
                   Password can't be empty
                 </mat-error>
                 <mat-error class="error"
-                  *ngIf="lf.password.errors?.['minlength'] && (lf.password.touched || loginFormSubmitted)">
+                  *ngIf="lf.password.errors?.['minlength'] && (loginFormSubmitted)">
                   Password should be minimum 6 characters
                 </mat-error>
               </mat-form-field>

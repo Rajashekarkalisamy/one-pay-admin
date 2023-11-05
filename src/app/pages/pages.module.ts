@@ -12,8 +12,11 @@ import { AppDashboardComponent } from './dashboard/dashboard.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from '../interceptor/token.interceptor';
 
+
 @NgModule({
-  declarations: [AppDashboardComponent],
+  declarations: [
+    AppDashboardComponent
+  ],
   imports: [
     CommonModule,
     MaterialModule,
@@ -29,4 +32,4 @@ import { TokenInterceptor } from '../interceptor/token.interceptor';
     multi: true,
   }],
 })
-export class PagesModule {}
+export class PagesModule { }

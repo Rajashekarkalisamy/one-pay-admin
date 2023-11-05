@@ -24,6 +24,7 @@ import { HeaderComponent } from './layouts/full/header/header.component';
 import { BrandingComponent } from './layouts/full/sidebar/branding.component';
 import { AppNavItemComponent } from './layouts/full/sidebar/nav-item/nav-item.component';
 import { APP_BASE_HREF } from '@angular/common';
+import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { APP_BASE_HREF } from '@angular/common';
     HeaderComponent,
     BrandingComponent,
     AppNavItemComponent,
+    PagenotfoundComponent,
   ],
   imports: [
     BrowserModule,

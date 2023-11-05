@@ -44,6 +44,9 @@ export class AuthService {
         if (response.statusCode == "R200" && response.data && response.data.email) {
           this.userEmail = response.data.email;
           this.loggedIn = true
+        }else{
+          this.logout();
+          this.commonService.redirect("/authentication/login");
         }
       } else {
         this.logout();

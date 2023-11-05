@@ -4,6 +4,8 @@ import { BlankComponent } from './layouts/blank/blank.component';
 import { FullComponent } from './layouts/full/full.component';
 import { AuthGuard } from './guard/auth.guard';
 import { LoginGuard } from './guard/login.guard';
+import { TourslistComponent } from './pages/tours/tourslist/tourslist.component';
+import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.component';
 
 const routes: Routes = [
   {
@@ -20,6 +22,11 @@ const routes: Routes = [
         path: 'dashboard',
         loadChildren: () =>
           import('./pages/pages.module').then((m) => m.PagesModule),
+      },
+      {
+        path: 'tours',
+        loadChildren: () =>
+          import('./pages/tours/tours.module').then((m) => m.ToursModule),
       },
       {
         path: 'ui-components',
@@ -48,6 +55,12 @@ const routes: Routes = [
           ),
       },
     ],
+  },
+
+  //Wild Card Route for 404 request 
+  {
+    path: '**', pathMatch: 'full',
+    component: PagenotfoundComponent
   },
 ];
 

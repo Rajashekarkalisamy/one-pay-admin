@@ -15,7 +15,6 @@ import {
   ApexMarkers,
   ApexResponsive,
 } from 'ng-apexcharts';
-import { AuthService } from 'src/app/services/auth/auth.service';
 
 interface month {
   value: string;
