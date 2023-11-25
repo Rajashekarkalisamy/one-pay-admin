@@ -6,9 +6,18 @@
                 <mat-card-header class="p-24">
                     <div class="col-md-12">
                         <mat-card-title>Add Tour
+                            <!-- <button type="button" mat-fab extended class="float-right m-b-20 m-l-20" [routerLink]="'/tours/list'">
+                                <mat-icon>arrow_back</mat-icon>
+                                Back
+                            </button> -->
+                            <button type="button" mat-fab extended class="float-right m-b-20 m-l-20"
+                                [routerLink]="'/tours/list'">
+                                <mat-icon>{{ tourId ? 'arrow_back' :'close' }}</mat-icon>
+                                {{ tourId ? 'Back' :'Cancel' }}
+                            </button>
                             <button type="submit" mat-fab extended class="float-right m-b-20">
                                 <mat-icon>upload</mat-icon>
-                                Save
+                                {{ tourId ? 'Update' :'Save' }}
                             </button>
                         </mat-card-title>
 
@@ -44,7 +53,7 @@
                                     <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Plan
                                         Date</mat-label>
                                     <mat-date-range-input [rangePicker]="picker">
-                                        <input matStartDate placeholder="Start date" formControlName="planstartdate">
+                                        <input matStartDate placeholder="Start date" formControlName="planstartdate" >
                                         <input matEndDate placeholder="End date" formControlName="planenddate">
                                     </mat-date-range-input>
                                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>

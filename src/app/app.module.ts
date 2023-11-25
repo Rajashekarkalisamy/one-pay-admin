@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,6 +25,7 @@ import { BrandingComponent } from './layouts/full/sidebar/branding.component';
 import { AppNavItemComponent } from './layouts/full/sidebar/nav-item/nav-item.component';
 import { APP_BASE_HREF } from '@angular/common';
 import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.component';
+import { TokenInterceptor } from './interceptor/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -49,8 +50,10 @@ import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.compone
   ],
   exports: [TablerIconsModule],
   bootstrap: [AppComponent],
-  providers:[
+  providers: [
     { provide: APP_BASE_HREF, useValue: '/' },
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true, }
   ]
+
 })
-export class AppModule {}
+export class AppModule { }

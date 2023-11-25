@@ -16,28 +16,27 @@ export class CommonService {
     private cookieService: CookieService,
     private http: HttpService,
     private _snackBar: MatSnackBar,
-    private _router: Router
+    private _router: Router,
   ) { }
 
   request = (endPoint: string, type = "GET", data: any = {}) => {
     return new Promise((resolve, reject) => {
       if (type == "GET") {
-        this.http.get(environment.apiDomain + endPoint).subscribe((responseBody: any) => {
-          console.log(responseBody);
+        this.http.get(environment.apiDomain + endPoint).subscribe((response: any) => {
+          console.log(response);
+          if (response.success) {
+            this.showToaster(response.type, response.message);
+            resolve(response);
+          } else {
+            this.openToast("error", response.message);
+            reject(response);
+          }
         });
       } else {
         this.http.post(environment.apiDomain + endPoint, data).subscribe((response: any) => {
           console.log(response);
           if (response.success) {
-            if (response.type === STATUS['INFORMATION']) {
-              this.openToast("info", response.message);
-            } else if (response.type === STATUS['WARNING']) {
-              this.openToast("warn", response.message);
-            } else if (response.type === STATUS['ERROR']) {
-              this.openToast("error", response.message);
-            } else if (response.type === STATUS['SUCCESS']) {
-              this.openToast("success", response.message);
-            }
+            this.showToaster(response.type, response.message);
             resolve(response);
           } else {
             this.openToast("error", response.message);
@@ -47,6 +46,19 @@ export class CommonService {
       }
     });
   }
+
+  showToaster = (responseType: any, responseMessage: any) => {
+    if (responseType === STATUS['INFORMATION']) {
+      this.openToast("info", responseMessage);
+    } else if (responseType === STATUS['WARNING']) {
+      this.openToast("warn", responseMessage);
+    } else if (responseType === STATUS['ERROR']) {
+      this.openToast("error", responseMessage);
+    } else if (responseType === STATUS['SUCCESS']) {
+      this.openToast("success", responseMessage);
+    }
+  }
+
   openToast = (type: string = "success", message: string, action: any = "Okay!") => {
     let panelClass = ['default-snackbar'];
     if (type == "success") panelClass = ['green-snackbar'];
@@ -58,6 +70,7 @@ export class CommonService {
       this._snackBar.open(message, action, {
         panelClass: panelClass,
         verticalPosition: this.verticalPosition,
+        duration: 4000,
       });
     }
   }
@@ -71,4 +84,10 @@ export class CommonService {
   getCookie = (key: string) => this.cookieService.get(key);
 
   clearCookie = (key: string) => this.cookieService.delete(key);
+
+  daydiff = (startDate: Date, endDate: Date) => {
+    // Calculate the difference in days using JavaScript Date object
+    const timeDifference = endDate.getTime() - startDate.getTime();
+    return Math.ceil(timeDifference / (1000 * 3600 * 24)) + 1;
+  }
 }
