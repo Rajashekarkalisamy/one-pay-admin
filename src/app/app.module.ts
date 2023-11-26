@@ -26,6 +26,7 @@ import { AppNavItemComponent } from './layouts/full/sidebar/nav-item/nav-item.co
 import { APP_BASE_HREF } from '@angular/common';
 import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.component';
 import { TokenInterceptor } from './interceptor/token.interceptor';
+import { ConfirmDialogComponent } from './pages/common/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { TokenInterceptor } from './interceptor/token.interceptor';
     BrandingComponent,
     AppNavItemComponent,
     PagenotfoundComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,

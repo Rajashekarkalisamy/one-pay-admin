@@ -9,6 +9,18 @@ export class ToursService {
   toursList: any = [];
   constructor(private commonService: CommonService, private zone: NgZone) { }
 
+  create = (data: object) => {
+    return new Promise((resolve, reject) => {
+      this.commonService.request("tours/create", "POST", data).then((response: any) => {
+        if (response.success && (response.statusCode == "R209" || response.statusCode == "R210")) {
+          this.toursUpdated = false;
+          this.commonService.redirect("tours/list");
+          resolve(true);
+        }
+      });
+    })
+  }
+
   updateToursList = async () => {
     try {
       const response: any = await this.commonService.request("tours/list");
@@ -28,5 +40,17 @@ export class ToursService {
       await this.updateToursList();
       return this.toursList;
     }
+  }
+  deleteTour = (tourId: any) => {
+    return new Promise((resolve, reject) => {
+      this.commonService.request("tours/delete", "POST", {
+        tour_id: tourId
+      }).then((response: any) => {
+        if (response.success && response.statusCode == "R208") {
+          this.toursUpdated = false;
+          resolve(true);
+        }
+      });
+    })
   }
 }

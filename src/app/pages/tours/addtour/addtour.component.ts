@@ -55,7 +55,13 @@ export class AddtourComponent implements OnInit {
   addTour = () => {
     this.tourFormSubmitted = true;
     if (this.tourForm.valid) {
-      this.isPlan = true;
+      this.tourService.create({
+        "tour_id": this.tourId,
+        "plan": this.atf.plan.value,
+        "description": this.atf.description.value,
+        "plan_start_date": this.atf.planstartdate.value,
+        "plan_end_date": this.atf.planenddate.value
+      })
     }
   }
 

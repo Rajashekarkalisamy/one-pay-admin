@@ -5,6 +5,8 @@ import { environment } from 'src/environments/environment';
 import { STATUS } from '../config/index.config';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { ConfirmDialogComponent, ConfirmDialogModel } from '../pages/common/confirm-dialog/confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +19,7 @@ export class CommonService {
     private http: HttpService,
     private _snackBar: MatSnackBar,
     private _router: Router,
+    private dialog: MatDialog
   ) { }
 
   request = (endPoint: string, type = "GET", data: any = {}) => {
@@ -73,6 +76,22 @@ export class CommonService {
         duration: 4000,
       });
     }
+  }
+
+  confirm = (message: string) => {
+    return new Promise((resolve, reject) => {
+      const dialogData = new ConfirmDialogModel("Confirmation", message);
+
+      const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+        data: dialogData,
+        width: '450px',
+        position: {top: '80px'}
+      });
+
+      dialogRef.afterClosed().subscribe(dialogResult => {
+        resolve(dialogResult);
+      });
+    })
   }
   redirect(path: string) {
     if (path && this._router.url != path) this._router.navigate([path]);
