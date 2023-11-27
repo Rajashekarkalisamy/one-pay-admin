@@ -13,6 +13,7 @@ export const navItems: NavItem[] = [
     displayName: 'Tours',
     iconName: 'mood-smile',
     route: '/tours/list',
+    innerRoutes: ['/tours/addtour', '/tours/addmember'],
   },
   // {
   //   navCap: 'Ui Components',

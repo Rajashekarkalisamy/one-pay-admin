@@ -26,7 +26,7 @@
             <div class="input_group">
               <mat-form-field appearance="outline" class="w-100" color="primary">
                 <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Email</mat-label>
-                <input matInput type="email" formControlName="email" maxlength="25"/>
+                <input matInput type="email" formControlName="email" maxlength="75"/>
                 <mat-error class="error"
                   *ngIf="lf.email.errors?.['required'] && (loginFormSubmitted)">
                   Email address can't be empty

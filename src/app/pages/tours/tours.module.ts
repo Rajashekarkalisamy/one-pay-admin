@@ -3,16 +3,19 @@ import { CommonModule } from '@angular/common';
 
 import { ToursRoutingModule } from './tours-routing.module';
 import { MaterialModule } from 'src/app/material.module';
-import { TourslistComponent } from './tourslist/tourslist.component';
-import { AddtourComponent } from './addtour/addtour.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
+
+import { TourslistComponent } from './tourslist/tourslist.component';
+import { AddtourComponent } from './addtour/addtour.component';
+import { AddmemberComponent } from './addmember/addmember.component';
 
 
 @NgModule({
   declarations: [
     TourslistComponent,
-    AddtourComponent
+    AddtourComponent,
+    AddmemberComponent
   ],
   imports: [
     CommonModule,
