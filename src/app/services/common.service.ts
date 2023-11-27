@@ -3,7 +3,7 @@ import { HttpService } from './http/http.service';
 import { MatSnackBar, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { environment } from 'src/environments/environment';
 import { STATUS } from '../config/index.config';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ConfirmDialogComponent, ConfirmDialogModel } from '../pages/common/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -13,8 +13,8 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class CommonService {
   verticalPosition: MatSnackBarVerticalPosition = 'top';
-
   constructor(
+    private activeRoute: ActivatedRoute,
     private cookieService: CookieService,
     private http: HttpService,
     private _snackBar: MatSnackBar,
@@ -85,7 +85,7 @@ export class CommonService {
       const dialogRef = this.dialog.open(ConfirmDialogComponent, {
         data: dialogData,
         width: '450px',
-        position: {top: '80px'}
+        position: { top: '80px' }
       });
 
       dialogRef.afterClosed().subscribe(dialogResult => {
@@ -93,8 +93,14 @@ export class CommonService {
       });
     })
   }
-  redirect(path: string) {
-    if (path && this._router.url != path) this._router.navigate([path]);
+  redirect(path: string, queryParams: any = false) {
+    if (path && this._router.url != path) {
+      if (queryParams) {
+        this._router.navigate([path], { queryParams: queryParams });
+      } else {
+        this._router.navigate([path]);
+      }
+    }
   }
 
   setCookie = (key: string, value: any) => {
@@ -108,5 +114,12 @@ export class CommonService {
     // Calculate the difference in days using JavaScript Date object
     const timeDifference = endDate.getTime() - startDate.getTime();
     return Math.ceil(timeDifference / (1000 * 3600 * 24)) + 1;
+  }
+  queryParams = (): any => {
+    let queryParams;
+    this.activeRoute.queryParams.subscribe(params => {
+      queryParams = params;
+    });
+    return queryParams;
   }
 }

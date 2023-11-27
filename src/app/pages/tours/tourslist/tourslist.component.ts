@@ -12,7 +12,7 @@ export class TourslistComponent implements OnInit {
 
   tourColumns: string[] = ['position', 'name', 'description', 'action'];
   tours: any = [];
-  private datePipe: DatePipe = new DatePipe("en-IN")
+  private datePipe: DatePipe = new DatePipe("en-IN");
   constructor(private tourService: ToursService, private commonService: CommonService) { }
 
   ngOnInit() {

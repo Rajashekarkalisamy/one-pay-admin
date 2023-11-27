@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { CommonService } from 'src/app/services/common.service';
 import { ToursService } from 'src/app/services/pages/tours/tours.service';
 
 @Component({
@@ -10,19 +10,18 @@ import { ToursService } from 'src/app/services/pages/tours/tours.service';
 })
 
 export class AddtourComponent implements OnInit {
-  state = this._router.getCurrentNavigation()?.extras.state;
   isPlan: boolean = false;
   tourFormSubmitted: boolean = false;
   tourMemberFormSubmitted: boolean = false;
   tourMembers: string[] = ["Rajasekar", "Kalisamy"];
   tourId: string | null;
   constructor(
-    private _router: Router,
+    private commonService: CommonService,
     private tourService: ToursService
   ) { }
 
   ngOnInit(): void {
-    this.tourId = this.state && this.state['tour_id'] ? this.state['tour_id'] : null;
+    this.tourId = this.commonService.queryParams()?.tour_id ?? null;
     if (this.tourId) {
       this.tourService.getTours().then(tours => {
         const tour = tours.find((tour: any) => tour._id === this.tourId);
@@ -61,6 +60,12 @@ export class AddtourComponent implements OnInit {
         "description": this.atf.description.value,
         "plan_start_date": this.atf.planstartdate.value,
         "plan_end_date": this.atf.planenddate.value
+      }).then((response: any) => {
+        if (response.statusCode == "R208") {
+          this.commonService.redirect("tours/addmember", { tour_id: response.data._id });
+        } else if (response.statusCode == "R209") {
+          this.commonService.redirect("tours/list");
+        }
       })
     }
   }
@@ -76,6 +81,7 @@ export class AddtourComponent implements OnInit {
       this.tourMemberFormSubmitted = false;
     }
   }
+
   removeMember(key: string): void {
     let index = Number(key);
     if (index >= 0) {
