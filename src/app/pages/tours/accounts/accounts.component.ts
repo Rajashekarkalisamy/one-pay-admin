@@ -12,16 +12,17 @@ import { ToursService } from 'src/app/services/pages/tours/tours.service';
 export class AccountsComponent implements OnInit {
 
   tours: any = [];
-  collection: boolean = false;
-  expenditure: boolean = false;
   members: any = [];
 
   accountsFormSubmitted: boolean = false;
+  isAllSelected: boolean = false;
 
   accountsForm = new FormGroup({
-    tour_id: new FormControl('', [Validators.required]),
+    tour_id: new FormControl('6563a4d838699e01724a7fa1', [Validators.required]),
     type: new FormControl('collection', [Validators.required]),
-    collected_from: new FormControl(''),
+    collected_from: new FormControl('', [Validators.required]),
+    amount: new FormControl('', [Validators.required]),
+    reason: new FormControl('', [Validators.required]),
   });
 
   constructor(
@@ -33,25 +34,14 @@ export class AccountsComponent implements OnInit {
   ngOnInit(): void {
     this.tourService.getTours().then(tours => {
       this.tours = tours;
-    })
+    });
+    this.loadMembers()
   }
   loadMembers = () => {
     if (this.af.tour_id.value) {
       this.memberService.getMembers(this.af.tour_id.value).then(members => {
         this.members = members;
       });
-      this.showAccountsSection();
-    }
-  }
-  showAccountsSection = () => {
-    if (this.af.tour_id.value) {
-      if (this.af.type.value == "collection") {
-        this.collection = true;
-        this.expenditure = false;
-      } else if (this.af.type.value == "expenditure") {
-        this.expenditure = true;
-        this.collection = false;
-      }
     }
   }
   addDetail = () => {
@@ -62,6 +52,18 @@ export class AccountsComponent implements OnInit {
 
   get af() {
     return this.accountsForm.controls;
+  }
+
+  selectAll = (isChecked: boolean) => {
+    this.isAllSelected = isChecked;
+    this.members.forEach((element: any) => {
+      element['checked'] = isChecked;
+    });
+  }
+  selectMember(memberId: string, isChecked: boolean) {
+    this.members.find((member: any) => member._id == memberId)['checked'] = isChecked;
+    const checkedCount = this.members.filter((member: any) => member.checked).length;
+    this.isAllSelected = (checkedCount == this.members.length)
   }
 
 }
