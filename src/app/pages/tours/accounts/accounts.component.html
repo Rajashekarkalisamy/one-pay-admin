@@ -1,0 +1,81 @@
+<div class="row">
+
+    <div class="col-lg-12">
+        <form [formGroup]="accountsForm" (ngSubmit)="addDetail()">
+            <mat-card class="cardWithShadow">
+                <mat-card-header>
+                    <div class="col-md-12 p-24">
+                        <mat-card-title>Accounts
+                            <button type="submit" mat-fab extended class="float-right m-b-20">
+                                <mat-icon>upload</mat-icon> Save
+                            </button>
+                        </mat-card-title>
+                    </div>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="col-md-12 d-flex">
+                        <div class="col-md-4">
+                            <div class="input_group">
+                                <mat-form-field appearance="outline" class="w-100" color="primary">
+                                    <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Tour</mat-label>
+                                    <mat-select formControlName="tour_id" (selectionChange)="loadMembers()">
+                                        <mat-option *ngFor="let tour of tours" [value]="tour._id">
+                                            {{tour.plan}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-error class="error"
+                                        *ngIf="af.tour_id.errors?.['required'] && (accountsFormSubmitted)">
+                                        Choose the Tour
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input_group">
+                                <mat-radio-group aria-label="Select an option" formControlName="type">
+                                    <mat-radio-button value="collection">Collection</mat-radio-button>
+                                    <mat-radio-button value="expenditure">Expenditure</mat-radio-button>
+                                </mat-radio-group>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="af.tour_id.value">
+                        <div *ngIf="af.type.value == 'collection'">
+                            <div class="col-md-12 p-24">
+                                <mat-card-title> Collection </mat-card-title>
+                            </div>
+                            <div class="col-md-12 d-flex">
+                                <div class="col-md-4">
+                                    <div class="input_group">
+                                        <mat-form-field appearance="outline" class="w-100" color="primary">
+                                            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Amount
+                                                Collected
+                                                From</mat-label>
+                                            <mat-select formControlName="collected_from">
+                                                <mat-option *ngFor="let member of members" [value]="member._id">
+                                                    {{member.name}}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error class="error"
+                                                *ngIf="af.collected_from.errors?.['required'] && (accountsFormSubmitted)">
+                                                Choose the Member
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input_group">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="af.type.value == 'expenditure'">
+                            <div class="col-md-12 d-flex">
+                            </div>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </form>
+    </div>
+</div>

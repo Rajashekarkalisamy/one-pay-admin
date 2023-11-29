@@ -10,11 +10,17 @@ import { ToursService } from 'src/app/services/pages/tours/tours.service';
 })
 
 export class AddtourComponent implements OnInit {
-  isPlan: boolean = false;
+  
   tourFormSubmitted: boolean = false;
-  tourMemberFormSubmitted: boolean = false;
-  tourMembers: string[] = ["Rajasekar", "Kalisamy"];
   tourId: string | null;
+
+  tourForm = new FormGroup({
+    plan: new FormControl('', [Validators.required]),
+    description: new FormControl(''),
+    planstartdate: new FormControl('', [Validators.required]),
+    planenddate: new FormControl('', [Validators.required])
+  });
+
   constructor(
     private commonService: CommonService,
     private tourService: ToursService
@@ -33,22 +39,6 @@ export class AddtourComponent implements OnInit {
         })
       });
     }
-  }
-
-  tourForm = new FormGroup({
-    plan: new FormControl('', [Validators.required]),
-    description: new FormControl(''),
-    planstartdate: new FormControl('', [Validators.required]),
-    planenddate: new FormControl('', [Validators.required])
-  });
-  get atf() {
-    return this.tourForm.controls;
-  }
-  tourMemberForm = new FormGroup({
-    member_name: new FormControl('', [Validators.required])
-  });
-  get amf() {
-    return this.tourMemberForm.controls;
   }
 
   addTour = () => {
@@ -70,22 +60,8 @@ export class AddtourComponent implements OnInit {
     }
   }
 
-  addMember = () => {
-    this.tourMemberFormSubmitted = true;
-    if (this.tourMemberForm.valid) {
-      let member = this.amf.member_name.value ?? '';
-      this.tourMembers.push(member);
-      this.tourMemberForm.patchValue({
-        member_name: ''
-      });
-      this.tourMemberFormSubmitted = false;
-    }
+  get atf() {
+    return this.tourForm.controls;
   }
 
-  removeMember(key: string): void {
-    let index = Number(key);
-    if (index >= 0) {
-      this.tourMembers.splice(index, 1);
-    }
-  }
 }

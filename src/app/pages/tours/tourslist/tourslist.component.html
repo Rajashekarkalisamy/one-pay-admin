@@ -4,8 +4,8 @@
     </div>
     <div class="col-lg-12">
         <mat-card class="cardWithShadow">
-            <mat-card-header class="p-24">
-                <div class="col-md-12">
+            <mat-card-header>
+                <div class="col-md-12 p-24">
                     <mat-card-title>Tours
                         <button mat-fab extended class="float-right m-b-20" [routerLink]="['/tours/addtour']">
                             <mat-icon>add</mat-icon>
@@ -66,6 +66,7 @@
                                     [queryParams]="{tour_id: element.tour_id}">edit</mat-icon>
                                 <mat-icon class="m-l-16 cursor-pointer" title="Delete"
                                     (click)="deleteTour(element.tour_id)">delete</mat-icon>
+                                <mat-icon class="m-l-16 cursor-pointer" title="Accounts">account_balance</mat-icon>
                             </td>
                         </ng-container>
 

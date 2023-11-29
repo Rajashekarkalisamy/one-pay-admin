@@ -15,6 +15,11 @@ export const navItems: NavItem[] = [
     route: '/tours/list',
     innerRoutes: ['/tours/addtour', '/tours/addmember'],
   },
+  {
+    displayName: 'Tour Accounts',
+    iconName: 'brand-cashapp',
+    route: '/tours/accounts',
+  },
   // {
   //   navCap: 'Ui Components',
   // },
