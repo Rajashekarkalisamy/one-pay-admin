@@ -4,7 +4,6 @@ import { MatSnackBar, MatSnackBarVerticalPosition } from '@angular/material/snac
 import { environment } from 'src/environments/environment';
 import { STATUS } from '../config/index.config';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 import { ConfirmDialogComponent, ConfirmDialogModel } from '../pages/common/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -15,7 +14,6 @@ export class CommonService {
   verticalPosition: MatSnackBarVerticalPosition = 'top';
   constructor(
     private activeRoute: ActivatedRoute,
-    private cookieService: CookieService,
     private http: HttpService,
     private _snackBar: MatSnackBar,
     private _router: Router,
@@ -102,13 +100,6 @@ export class CommonService {
       }
     }
   }
-
-  setCookie = (key: string, value: any) => {
-    if (key && value) this.cookieService.set(key, value);
-  }
-  getCookie = (key: string) => this.cookieService.get(key);
-
-  clearCookie = (key: string) => this.cookieService.delete(key);
 
   daydiff = (startDate: Date, endDate: Date) => {
     // Calculate the difference in days using JavaScript Date object
