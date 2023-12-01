@@ -10,6 +10,7 @@ import { TourslistComponent } from './tourslist/tourslist.component';
 import { AddtourComponent } from './addtour/addtour.component';
 import { AddmemberComponent } from './addmember/addmember.component';
 import { AccountsComponent } from './accounts/accounts.component';
+import { ReportComponent } from './report/report.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { AccountsComponent } from './accounts/accounts.component';
     TourslistComponent,
     AddtourComponent,
     AddmemberComponent,
-    AccountsComponent
+    AccountsComponent,
+    ReportComponent
   ],
   imports: [
     CommonModule,
