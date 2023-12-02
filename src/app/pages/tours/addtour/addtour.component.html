@@ -49,8 +49,8 @@
                                     <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Plan
                                         Date</mat-label>
                                     <mat-date-range-input [rangePicker]="picker">
-                                        <input matStartDate placeholder="Start date" formControlName="planstartdate" >
-                                        <input matEndDate placeholder="End date" formControlName="planenddate">
+                                        <input matStartDate placeholder="Start date" (click)="picker.open()" formControlName="planstartdate" readonly>
+                                        <input matEndDate placeholder="End date" (click)="picker.open()" formControlName="planenddate" readonly>
                                     </mat-date-range-input>
                                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                                     <mat-date-range-picker #picker></mat-date-range-picker>

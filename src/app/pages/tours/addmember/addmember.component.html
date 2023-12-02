@@ -1,5 +1,4 @@
 <div class="row">
-
     <div class="col-lg-12">
         <form [formGroup]="memberForm" (ngSubmit)="addMember()">
             <mat-card class="cardWithShadow">
@@ -78,7 +77,9 @@
                                         (click)="editMember(element.member_id)">edit</mat-icon>
                                     <mat-icon class="m-l-16 cursor-pointer" title="Delete"
                                         (click)="deleteMember(element.member_id)">delete</mat-icon>
-                                    <mat-icon class="m-l-16 cursor-pointer" title="Accounts">account_balance</mat-icon>
+                                    <mat-icon class="m-l-16 cursor-pointer" title="Statement"
+                                        [routerLink]="['/tours/report']"
+                                        [queryParams]="{tour_id: element.tour_id, member_id:element.member_id}">account_balance_wallet</mat-icon>
                                 </td>
                             </ng-container>
 

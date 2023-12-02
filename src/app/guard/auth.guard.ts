@@ -15,10 +15,10 @@ export class AuthGuard {
   async canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot) {
-    if (this.authService.isLoggedIn()) {
+    const authToken = this.authService.getToken();
+    if (this.authService.isLoggedIn() && authToken) {
       return true;
     } else {
-      const authToken = this.authService.getToken();
       if (authToken) {
         await this.authService.verifyToken();
         if (this.authService.isLoggedIn()) {

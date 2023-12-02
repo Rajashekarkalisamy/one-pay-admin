@@ -12,12 +12,11 @@ export class LoginGuard {
   async canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot) {
-
-    if (this.authService.isLoggedIn()) {
+    const authToken = this.authService.getToken();
+    if (this.authService.isLoggedIn() && authToken) {
       this.commonService.redirect('/dashboard');
       return false;
     } else {
-      const authToken = this.authService.getToken();
       if (authToken) {
         await this.authService.verifyToken();
         if (this.authService.isLoggedIn()) {

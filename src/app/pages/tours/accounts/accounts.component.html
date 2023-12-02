@@ -41,7 +41,7 @@
                                             <mat-form-field appearance="outline" class="w-100" color="primary">
                                                 <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">
                                                     Date</mat-label>
-                                                <input matInput [matDatepicker]="picker" formControlName="date">
+                                                <input matInput [matDatepicker]="picker" (click)="picker.open()" formControlName="date" readonly>
                                                 <mat-datepicker-toggle matIconSuffix
                                                     [for]="picker"></mat-datepicker-toggle>
                                                 <mat-datepicker #picker></mat-datepicker>
