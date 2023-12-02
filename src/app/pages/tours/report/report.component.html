@@ -19,7 +19,7 @@
                             <span>Collection: &#x20B9; <span>{{collection}}</span></span>
                         </mat-card-title>
                         <mat-card-title class="d-flex justify-content-between">
-                            <span>Balance: &#x20B9; <span>{{(collection - expenditure).toFixed(2)}}</span></span>
+                            <span>Balance: &#x20B9; <span>{{collection - expenditure}}</span></span>
                             <span>Expenditure: &#x20B9; <span>{{expenditure}}</span></span>
                         </mat-card-title>
                     </div>
@@ -143,7 +143,7 @@
                         </mat-card-title>
                         <mat-card-title class="d-flex justify-content-between">
                             <span></span>
-                            <span>Balance: &#x20B9; <span>{{(collection - expenditure).toFixed(2)}}</span></span>
+                            <span>Balance: &#x20B9; <span>{{collection - expenditure}}</span></span>
                         </mat-card-title>
                     </div>
                 </div>

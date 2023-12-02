@@ -86,9 +86,9 @@ export class ReportComponent {
             share_amount: element.type == "collection" ? `+ ${(element.amount / element.members.length).toFixed(2)}` : `- ${(element.amount / element.members.length).toFixed(2)}`,
           };
           if (element.type == "collection") {
-            this.collection = this.collection + (this.memberId ? (element.amount / element.members.length).toFixed(2) : (element.amount).toFixed(2));
+            this.collection = this.collection + (this.memberId ? Number((element.amount / element.members.length).toFixed(2)) : Number((element.amount).toFixed(2)));
           } else {
-            this.expenditure = this.expenditure + (this.memberId ? (element.amount / element.members.length).toFixed(2) : (element.amount).toFixed(2));
+            this.expenditure = this.expenditure + (this.memberId ? Number((element.amount / element.members.length).toFixed(2)) : Number((element.amount).toFixed(2)));
           }
           this.transactions.push(tour);
         });
