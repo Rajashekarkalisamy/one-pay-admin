@@ -11,6 +11,7 @@ import { AddtourComponent } from './addtour/addtour.component';
 import { AddmemberComponent } from './addmember/addmember.component';
 import { AccountsComponent } from './accounts/accounts.component';
 import { ReportComponent } from './report/report.component';
+import { PreviewComponent } from './accounts/preview/preview.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { ReportComponent } from './report/report.component';
     AddtourComponent,
     AddmemberComponent,
     AccountsComponent,
-    ReportComponent
+    ReportComponent,
+    PreviewComponent
   ],
   imports: [
     CommonModule,

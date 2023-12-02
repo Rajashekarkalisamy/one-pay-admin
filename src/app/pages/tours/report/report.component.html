@@ -5,15 +5,27 @@
     <div class="col-lg-12">
         <mat-card class="cardWithShadow">
             <mat-card-header>
+                <div class="row w-100">
                 <div class="col-md-12 p-24">
-                    <mat-card-title class="d-flex justify-content-between m-b-15">
-                        <span>{{tourName}}</span>
-                        <span>Collection: &#x20B9; <span>{{collection}}</span></span>
+                    <mat-card-title>
+                        <button mat-fab extended class="float-right" [routerLink]="['/tours/accounts']"
+                            [queryParams]="{tour_id:tourId}">
+                            <mat-icon>add</mat-icon>
+                            Add Transaction
+                        </button>
                     </mat-card-title>
-                    <mat-card-title class="d-flex justify-content-between">
-                        <span>Balance: &#x20B9; <span>{{collection - expenditure}}</span></span>
-                        <span>Expenditure: &#x20B9; <span>{{expenditure}}</span></span>
-                    </mat-card-title>
+
+                </div>
+                <div class=" col-md-12 p-24">
+                            <mat-card-title class="d-flex justify-content-between m-b-15">
+                                <span>{{tourName}}</span>
+                                <span>Collection: &#x20B9; <span>{{collection}}</span></span>
+                            </mat-card-title>
+                            <mat-card-title class="d-flex justify-content-between">
+                                <span>Balance: &#x20B9; <span>{{collection - expenditure}}</span></span>
+                                <span>Expenditure: &#x20B9; <span>{{expenditure}}</span></span>
+                            </mat-card-title>
+                </div>
                 </div>
             </mat-card-header>
             <mat-card-content>

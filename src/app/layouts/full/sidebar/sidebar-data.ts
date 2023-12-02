@@ -13,12 +13,7 @@ export const navItems: NavItem[] = [
     displayName: 'Tours',
     iconName: 'mood-smile',
     route: '/tours/list',
-    innerRoutes: ['/tours/addtour', '/tours/addmember', '/tours/report'],
-  },
-  {
-    displayName: 'Tour Accounts',
-    iconName: 'brand-cashapp',
-    route: '/tours/accounts',
+    innerRoutes: ['/tours/addtour', '/tours/addmember', '/tours/report', '/tours/accounts'],
   },
   // {
   //   navCap: 'Ui Components',

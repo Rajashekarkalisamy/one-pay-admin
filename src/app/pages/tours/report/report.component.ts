@@ -43,7 +43,6 @@ export class ReportComponent {
       if (confirm) {
         this.accountsService.deleteTransaction(tourId, transactionId).then(response => {
           if (response) {
-            alert(1)
             this.loadTransactions();
           }
         })

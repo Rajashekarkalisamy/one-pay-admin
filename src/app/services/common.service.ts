@@ -91,6 +91,15 @@ export class CommonService {
       });
     })
   }
+  modal = (component: any, data: any) => {
+    return new Promise((resolve, reject) => {
+      this.dialog.open(component, {
+        width: '550px',
+        data: data
+      }).afterClosed().subscribe((dialogResult) => { resolve(dialogResult); });
+    });
+  }
+
   redirect(path: string, queryParams: any = false) {
     if (path && this._router.url != path) {
       if (queryParams) {
@@ -106,6 +115,7 @@ export class CommonService {
     const timeDifference = endDate.getTime() - startDate.getTime();
     return Math.ceil(timeDifference / (1000 * 3600 * 24)) + 1;
   }
+
   queryParams = (): any => {
     let queryParams;
     this.activeRoute.queryParams.subscribe(params => {

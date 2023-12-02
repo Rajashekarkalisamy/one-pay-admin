@@ -27,6 +27,7 @@ import { APP_BASE_HREF } from '@angular/common';
 import { PagenotfoundComponent } from './pages/pagenotfound/pagenotfound.component';
 import { TokenInterceptor } from './interceptor/token.interceptor';
 import { ConfirmDialogComponent } from './pages/common/confirm-dialog/confirm-dialog.component';
+import { ModalComponent } from './pages/common/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ConfirmDialogComponent } from './pages/common/confirm-dialog/confirm-di
     BrandingComponent,
     AppNavItemComponent,
     PagenotfoundComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
