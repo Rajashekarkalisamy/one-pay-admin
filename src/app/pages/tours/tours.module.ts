@@ -9,13 +9,19 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { TourslistComponent } from './tourslist/tourslist.component';
 import { AddtourComponent } from './addtour/addtour.component';
 import { AddmemberComponent } from './addmember/addmember.component';
+import { AccountsComponent } from './accounts/accounts.component';
+import { ReportComponent } from './report/report.component';
+import { PreviewComponent } from './accounts/preview/preview.component';
 
 
 @NgModule({
   declarations: [
     TourslistComponent,
     AddtourComponent,
-    AddmemberComponent
+    AddmemberComponent,
+    AccountsComponent,
+    ReportComponent,
+    PreviewComponent
   ],
   imports: [
     CommonModule,
