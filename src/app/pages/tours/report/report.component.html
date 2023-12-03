@@ -5,6 +5,11 @@
                 <div class="row w-100">
                     <div class="col-md-12 p-24">
                         <mat-card-title>
+                            <button mat-fab extended class="float-right m-l-20" [routerLink]="['/tours/list']"
+                                [queryParams]="{tour_id:tourId}">
+                                <mat-icon>close</mat-icon>
+                                Close
+                            </button>
                             <button mat-fab extended class="float-right" [routerLink]="['/tours/accounts']"
                                 [queryParams]="{tour_id:tourId}">
                                 <mat-icon>add</mat-icon>
@@ -16,11 +21,11 @@
                     <div class=" col-md-12 p-24">
                         <mat-card-title class="d-flex justify-content-between m-b-15">
                             <span>{{tourName}}</span>
-                            <span>Collection: &#x20B9; <span>{{collection}}</span></span>
+                            <span>Collection: &#x20B9; <span>{{collection | number : '1.0-2'}}</span></span>
                         </mat-card-title>
                         <mat-card-title class="d-flex justify-content-between">
-                            <span>Balance: &#x20B9; <span>{{collection - expenditure}}</span></span>
-                            <span>Expenditure: &#x20B9; <span>{{expenditure}}</span></span>
+                            <span>Balance: &#x20B9; <span>{{(collection - expenditure) | number : '1.0-2'}}</span></span>
+                            <span>Expenditure: &#x20B9; <span>{{expenditure | number : '1.0-2'}}</span></span>
                         </mat-card-title>
                     </div>
                 </div>
@@ -135,15 +140,15 @@
                     <div class=" col-md-12 p-24">
                         <mat-card-title class="d-flex justify-content-between m-b-15">
                             <span>{{tourName}}</span>
-                            <span>Collection: &#x20B9; <span>{{collection}}</span></span>
+                            <span>Collection: &#x20B9; <span>{{collection | number : '1.0-2'}}</span></span>
                         </mat-card-title>
                         <mat-card-title class="d-flex justify-content-between m-b-15">
                             <span>Member: <span>{{memberName}}</span></span>
-                            <span>Expenditure: &#x20B9; <span>{{expenditure}}</span></span>
+                            <span>Expenditure: &#x20B9; <span>{{expenditure | number : '1.0-2'}}</span></span>
                         </mat-card-title>
                         <mat-card-title class="d-flex justify-content-between">
                             <span></span>
-                            <span>Balance: &#x20B9; <span>{{collection - expenditure}}</span></span>
+                            <span>Balance: &#x20B9; <span>{{(collection - expenditure) | number : '1.0-2'}}</span></span>
                         </mat-card-title>
                     </div>
                 </div>

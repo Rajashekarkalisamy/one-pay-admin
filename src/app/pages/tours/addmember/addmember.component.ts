@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/services/common.service';
+import { AccountsService } from 'src/app/services/pages/tours/accounts.service';
 import { MemberService } from 'src/app/services/pages/tours/member.service';
 
 @Component({
@@ -13,9 +14,15 @@ export class AddmemberComponent implements OnInit {
   memberFormSubmitted: boolean = false;
   memberId: String | null;
   members: any = [];
-  memberColumns: string[] = ['position', 'name', 'action'];
+  memberColumns: string[] = ['position', 'name', 'collection', 'expenditure', 'balance', 'action'];
+  wallet: any = {};
+  transactions: any = [];
 
-  constructor(private commonService: CommonService, private memberService: MemberService) { }
+  constructor(
+    private commonService: CommonService,
+    private memberService: MemberService,
+    private accountsService: AccountsService
+  ) { }
 
   memberForm = new FormGroup({
     name: new FormControl('', [Validators.required])
@@ -75,15 +82,36 @@ export class AddmemberComponent implements OnInit {
     this.memberService.getMembers(this.tourId).then(data => {
       this.members = [];
       var i = 1;
-      data.forEach((element: any) => {
-        let member: { position: Number, name: String, tour_id: String, member_id: String } = {
-          position: i++,
-          name: element.name,
-          tour_id: element.tour_id,
-          member_id: element._id,
-        };
-        this.members.push(member);
-      });
+      this.accountsService.getTransactions(this.tourId).then((transactions: any) => {
+        this.transactions = transactions;
+        data.forEach((element: any) => {
+          this.wallet[element._id] = {};
+          this.wallet[element._id]['collection'] = 0;
+          this.wallet[element._id]['expenditure'] = 0;
+          const memberTransactions = this.transactions.filter((transaction: any) => transaction.members.indexOf(element._id) !== -1);
+          memberTransactions.forEach((memberTransaction: any) => {
+            if (memberTransaction.type == "collection") {
+              this.wallet[element._id]['collection'] = this.wallet[element._id]['collection'] + Number((memberTransaction.amount / memberTransaction.members.length).toFixed(2));
+            } else {
+              this.wallet[element._id]['expenditure'] = this.wallet[element._id]['expenditure'] + Number((memberTransaction.amount / memberTransaction.members.length).toFixed(2));
+
+              if (element.name == 'Jawahar') {
+                console.log(this.wallet[element._id]['expenditure'], memberTransaction.amount, memberTransaction.members.length, Number((memberTransaction.amount / memberTransaction.members.length).toFixed(2)))
+              }
+            }
+          });
+
+          let member: any = {
+            position: i++,
+            name: element.name,
+            collection: this.wallet[element._id]['collection'],
+            expenditure: this.wallet[element._id]['expenditure'],
+            tour_id: element.tour_id,
+            member_id: element._id,
+          };
+          this.members.push(member);
+        });
+      })
     });
   }
 

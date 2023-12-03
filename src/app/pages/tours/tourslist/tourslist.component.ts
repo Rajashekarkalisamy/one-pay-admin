@@ -50,4 +50,7 @@ export class TourslistComponent implements OnInit {
     });
   }
 
+  redirect = (path: string, queryParams: object | null = null) => {
+    this.commonService.redirect(path, queryParams);
+  }
 }

@@ -63,7 +63,6 @@ export class ReportComponent {
     this.accountsService.getTransactions(this.tourId).then((data: any) => {
       this.memberService.getMembers(this.tourId).then((response: any) => {
         this.members = response;
-        console.log(response)
         this.transactions = [];
         var i = 1;
         this.collection = 0;
@@ -72,7 +71,6 @@ export class ReportComponent {
           if (this.memberId) {
             if (element.members.indexOf(this.memberId) === -1) { return; }
           }
-          console.log(element.members.indexOf(this.memberId))
           let name = element.collected_from ? this.members.find((member: any) => member._id == element.collected_from).name : ''
           let tour: any = {
             position: i++,

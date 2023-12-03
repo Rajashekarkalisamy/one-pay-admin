@@ -63,6 +63,7 @@ export class AccountsComponent implements OnInit {
               amount: transaction.amount,
               reason: transaction.reason,
             });
+            this.transactionTypeChange();
             (transaction.members).forEach((memberId: string) => {
               this.selectMember(memberId, true)
             });
@@ -87,11 +88,11 @@ export class AccountsComponent implements OnInit {
         tourName: this.tourName,
         date: this.af.date.value,
         type: this.af.type.value,
-        collectedFrom: this.members.find((member: any) => member._id == this.af.collected_from.value).name,
-        amount: this.af.amount.value,
+        collectedFrom: this.af.collected_from.value ? this.members.find((member: any) => member._id == this.af.collected_from.value)?.name : null,
+        amount: Number(this.af.amount.value).toFixed(2),
         shares: `${this.selectedMembers.length} Share(s)`,
         sharePartners: this.selectedMembersName.join(", "),
-        shareAmount: Number(this.af.amount.value) / this.selectedMembers.length
+        shareAmount: (Number(this.af.amount.value) / this.selectedMembers.length).toFixed(2)
       }).then((modalResponse: any) => {
         if (modalResponse && modalResponse.confirm) {
           const data = {
@@ -123,6 +124,8 @@ export class AccountsComponent implements OnInit {
           })
         }
       });
+    } else {
+      console.log(this.af, this.selectedMembers)
     }
   }
 
@@ -152,7 +155,7 @@ export class AccountsComponent implements OnInit {
       this.accountsForm.get("collected_from")?.clearValidators();
     }
     this.accountsForm.updateValueAndValidity();
-    this.accountsForm.patchValue({ collected_from: null });
+    if (this.af.type.value != "collection") { this.accountsForm.patchValue({ collected_from: null }) };
     this.accountsFormSubmitted = false;
   }
 }
