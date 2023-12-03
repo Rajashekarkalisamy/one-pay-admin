@@ -12,10 +12,13 @@ import { ToursService } from 'src/app/services/pages/tours/tours.service';
 export class ReportComponent {
 
   transactionColumns: string[] = ['position', 'date', 'name', 'shares', 'description', 'amount', 'action'];
+  memberTransactionColumns: string[] = ['position', 'date', 'name', 'shares', 'description', 'amount', 'share'];
   transactions: any = [];
   members: any = [];
   tourId: string;
   tourName: string;
+  memberId: string | null;
+  memberName: string;
   collection: number = 0;
   expenditure: number = 0;
   constructor(
@@ -34,6 +37,12 @@ export class ReportComponent {
         this.tourName = response.find((tour: any) => tour._id == this.tourId).plan;
       })
       this.loadTransactions();
+      this.memberId = this.commonService.queryParams()?.member_id ?? null;
+      if (this.memberId) {
+        this.memberService.getMembers(this.tourId).then((members: any) => {
+          this.memberName = members.find((member: any) => member._id == this.memberId).name;
+        })
+      }
     }
   }
 
@@ -54,14 +63,16 @@ export class ReportComponent {
     this.accountsService.getTransactions(this.tourId).then((data: any) => {
       this.memberService.getMembers(this.tourId).then((response: any) => {
         this.members = response;
-        console.log(response)
         this.transactions = [];
         var i = 1;
         this.collection = 0;
         this.expenditure = 0;
         data.forEach((element: any) => {
+          if (this.memberId) {
+            if (element.members.indexOf(this.memberId) === -1) { return; }
+          }
           let name = element.collected_from ? this.members.find((member: any) => member._id == element.collected_from).name : ''
-          let tour: { position: number, name: string, description: string | null, shares: string, account_id: string, tour_id: string, date: Date, amount: String } = {
+          let tour: any = {
             position: i++,
             account_id: element._id,
             tour_id: element.tour_id,
@@ -69,12 +80,13 @@ export class ReportComponent {
             name: name,
             shares: `${element.members.length} Share(s)`,
             description: element.reason,
-            amount: element.type == "collection" ? `+ ${element.amount}` : `- ${element.amount}`,
+            amount: element.type == "collection" ? `+ ${(element.amount).toFixed(2)}` : `- ${(element.amount).toFixed(2)}`,
+            share_amount: element.type == "collection" ? `+ ${(element.amount / element.members.length).toFixed(2)}` : `- ${(element.amount / element.members.length).toFixed(2)}`,
           };
           if (element.type == "collection") {
-            this.collection = this.collection + element.amount;
+            this.collection = this.collection + (this.memberId ? Number((element.amount / element.members.length).toFixed(2)) : Number((element.amount).toFixed(2)));
           } else {
-            this.expenditure = this.expenditure + element.amount;
+            this.expenditure = this.expenditure + (this.memberId ? Number((element.amount / element.members.length).toFixed(2)) : Number((element.amount).toFixed(2)));
           }
           this.transactions.push(tour);
         });

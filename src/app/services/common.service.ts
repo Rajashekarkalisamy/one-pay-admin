@@ -6,6 +6,7 @@ import { STATUS } from '../config/index.config';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmDialogComponent, ConfirmDialogModel } from '../pages/common/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AuthService } from './auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class CommonService {
     private http: HttpService,
     private _snackBar: MatSnackBar,
     private _router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) { }
 
   request = (endPoint: string, type = "GET", data: any = {}) => {
@@ -28,6 +29,10 @@ export class CommonService {
           if (response.success) {
             this.showToaster(response.type, response.message);
             resolve(response);
+            if(response.statusCode =="R401"){
+              localStorage.removeItem('auth_token');
+              this.redirect("/authentication/login")
+            }
           } else {
             this.openToast("error", response.message);
             reject(response);
@@ -39,6 +44,10 @@ export class CommonService {
           if (response.success) {
             this.showToaster(response.type, response.message);
             resolve(response);
+            if(response.statusCode =="R401"){
+              localStorage.removeItem('auth_token');
+              this.redirect("/authentication/login")
+            }
           } else {
             this.openToast("error", response.message);
             reject(response);
@@ -122,5 +131,8 @@ export class CommonService {
       queryParams = params;
     });
     return queryParams;
+  }
+
+  logOutAndRedirectLogin = () => {
   }
 }
